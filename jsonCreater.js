@@ -11,6 +11,6 @@ generatedJSON = [];
 for (let i=0; i<=genRandomSize(); i++){
     generatedJSON.push({note:genRandomNote(), tone:genRandomTone()})
 }
-fs.writeFileSync('data2.json', JSON.stringify(generatedJSON));
+fs.writeFileSync('data1.json', JSON.stringify(generatedJSON));
 
 // 1/2 1/4 1/8 1/16
