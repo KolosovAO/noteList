@@ -3,7 +3,6 @@ function Note(noteObj, x, y, w, h){
     this.y = y;
     this.w = w;
     this.h = h;
-    this.deleted = 0;
     switch(noteObj.note){
         case 'c':
             this.y += 10;

@@ -4,9 +4,7 @@ function NotesWidget(area, jsonFile){
         let data;
         let x = 10;
         let y = 0;
-        let countSpans, currentSpans;
         const render = (noteObj) => {
-            if (noteObj.deleted) return;
             switch(noteObj.tone){
                 case 1:
                     p.fill(255);
@@ -66,7 +64,6 @@ function NotesWidget(area, jsonFile){
 	                x = 10;
 	                increaseY(4);
 	                createNoteSpan();
-	                countSpans++;
                 }
                 notes[i] = new Note(data[i],x+10,y,25,25);
                 x += 50;
@@ -75,8 +72,7 @@ function NotesWidget(area, jsonFile){
         p.draw = function(){
             y = 0;
             for (let i=0; i<notes.length; i++){
-                if (i%16 === 0){
-                	currentSpans++;
+                if (i%16 === 0){		
                     x = 10;
                     increaseY(4);
                     createNoteSpan();
@@ -91,7 +87,7 @@ function NotesWidget(area, jsonFile){
                     console.log(p.mouseX)
                     for (let j=i+1; j<notes.length; j++){
                     	if (notes[j].x>50){
-                    		notes[j].x -= 50;
+                    		notes[j].x -= 50;	
                     	} else {
                     		notes[j].y -= 70;
                     		notes[j].x = 770;
