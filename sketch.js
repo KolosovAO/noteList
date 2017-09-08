@@ -2,9 +2,9 @@ function NotesWidget(area, jsonFile){
     var notes = [];
     const sketch = function(p) {
         let data;
-        let self = this;
-        this.x = 10;
-        this.y = 0;
+        let x = 10;
+        let y = 0;
+        let countSpans, currentSpans;
         const render = (noteObj) => {
             if (noteObj.deleted) return;
             switch(noteObj.tone){
@@ -45,48 +45,59 @@ function NotesWidget(area, jsonFile){
                     break;
             }
         }
-        const increaseY = (c) => this.y += c? 10*c : 10
+        const increaseY = (c) => y += c? 10*c : 10
         const createNoteSpan = () => {
-            p.line(this.x,this.y,p.width,this.y)
-            increaseY()
-            p.line(this.x,this.y,p.width,this.y)
-            increaseY()
-            p.line(this.x,this.y,p.width,this.y)
-            increaseY()
-            p.line(this.x,this.y,p.width,this.y)
+            p.line(x,y,p.width,y);
+            increaseY();
+            p.line(x,y,p.width,y);
+            increaseY();
+            p.line(x,y,p.width,y);
+            increaseY();
+            p.line(x,y,p.width,y);
         }
         p.preload = function(){
             data = p.loadJSON(jsonFile);
         }
         p.setup = function(){
-            p.createCanvas(800, 600);
+            p.createCanvas(800, 1000);
             p.background(255);
             for (let i in data){
                 if (i%16 === 0){
-                    self.x = 10;
-                    increaseY(4)
-                    createNoteSpan()
+	                x = 10;
+	                increaseY(4);
+	                createNoteSpan();
+	                countSpans++;
                 }
-                notes[i] = new Note(data[i],self.x+10,self.y,25,25);
-                self.x += 50;
+                notes[i] = new Note(data[i],x+10,y,25,25);
+                x += 50;
             }
         }
         p.draw = function(){
-            self.y = 0;
+            y = 0;
             for (let i=0; i<notes.length; i++){
                 if (i%16 === 0){
-                    self.x = 10;
-                    increaseY(4)
-                    createNoteSpan()
+                	currentSpans++;
+                    x = 10;
+                    increaseY(4);
+                    createNoteSpan();
                 }
                 render(notes[i]);
             }
-        }
+        }	
         p.mousePressed = function(){
             for (let i=0; i<notes.length; i++){
                 if (notes[i].contains(p.mouseX, p.mouseY)){
-                    p.clear()
-                    notes.splice(i,1)
+                    p.clear();
+                    console.log(p.mouseX)
+                    for (let j=i+1; j<notes.length; j++){
+                    	if (notes[j].x>50){
+                    		notes[j].x -= 50;
+                    	} else {
+                    		notes[j].y -= 70;
+                    		notes[j].x = 770;
+                    	}
+                    }
+                    notes.splice(i,1);
                 }
             }
         }
@@ -95,6 +106,6 @@ function NotesWidget(area, jsonFile){
 }
 
 
-new NotesWidget('c1', 'https://raw.githubusercontent.com/KolosovAO/noteList/master/data2.json');
+let c1 = new NotesWidget('c1', 'https://raw.githubusercontent.com/KolosovAO/noteList/master/data2.json');
 
-//new NotesWidget('c2', 'https://raw.githubusercontent.com/KolosovAO/noteList/master/data1.json');
+let c2 = new NotesWidget('c2', 'https://raw.githubusercontent.com/KolosovAO/noteList/master/data1.json');
