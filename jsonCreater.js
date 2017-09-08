@@ -12,5 +12,3 @@ for (let i=0; i<=size; i++){
     generatedJSON.push({note:genRandomNote(), tone:genRandomTone()})
 }
 fs.writeFileSync('data1.json', JSON.stringify(generatedJSON));
-
-// 1/2 1/4 1/8 1/16

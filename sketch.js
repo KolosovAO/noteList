@@ -5,7 +5,8 @@ function NotesWidget(area, jsonFile){
         let self = this;
         this.x = 10;
         this.y = 0;
-        const render = (noteObj) => {
+        this.render = (noteObj) => {
+            if (noteObj.deleted) return;
             switch(noteObj.tone){
                 case 1:
                     p.fill(255);
@@ -66,23 +67,26 @@ function NotesWidget(area, jsonFile){
                     increaseY(4)
                     createNoteSpan()
                 }
-                notes[i] = new Note(data[i],self.x,self.y,self.x+25,self.y+25);
+                notes[i] = new Note(data[i],self.x,self.y,25,25);
                 self.x += 50;
             }
         }
         p.draw = function(){
+            self.y = 0;
             for (let i=0; i<notes.length; i++){
-                render(notes[i]);
+                if (i%16 === 0){
+                    self.x = 10;
+                    increaseY(4)
+                    createNoteSpan()
+                }
+                self.render(notes[i]);
             }
         }
         p.mousePressed = function(){
-            p.ellipse(p.mouseX,p.mouseY,5,5)
-            console.log(p.mouseX, p.mouseY)
             for (let i=0; i<notes.length; i++){
                 if (notes[i].contains(p.mouseX, p.mouseY)){
-                    console.log(i)
-                    notes.splice(i,1);
-                    break;
+                    p.clear()
+                    notes.splice(i,1)
                 }
             }
         }

@@ -3,6 +3,7 @@ function Note(noteObj, x, y, w, h){
     this.y = y;
     this.w = w;
     this.h = h;
+    this.deleted = 0;
     switch(noteObj.note){
         case 'c':
             this.y += 10;
@@ -27,5 +28,5 @@ function Note(noteObj, x, y, w, h){
     }
     this.note = noteObj.note;
     this.tone = noteObj.tone;
-    this.contains = (x,y) => x>this.x && x<this.x+this.w && y>this.y && y<this.y+this.h
+    this.contains = (x,y) => x>this.x-this.w && x<this.x+this.w && y>this.y-this.h && y<this.h+this.y
 }
