@@ -5,7 +5,7 @@ function NotesWidget(area, jsonFile){
         let self = this;
         this.x = 10;
         this.y = 0;
-        this.render = (noteObj) => {
+        const render = (noteObj) => {
             if (noteObj.deleted) return;
             switch(noteObj.tone){
                 case 1:
@@ -67,7 +67,7 @@ function NotesWidget(area, jsonFile){
                     increaseY(4)
                     createNoteSpan()
                 }
-                notes[i] = new Note(data[i],self.x,self.y,25,25);
+                notes[i] = new Note(data[i],self.x+10,self.y,25,25);
                 self.x += 50;
             }
         }
@@ -79,7 +79,7 @@ function NotesWidget(area, jsonFile){
                     increaseY(4)
                     createNoteSpan()
                 }
-                self.render(notes[i]);
+                render(notes[i]);
             }
         }
         p.mousePressed = function(){
