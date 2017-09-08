@@ -91,6 +91,6 @@ function NotesWidget(area, jsonFile){
 }
 
 
-new NotesWidget('c1', 'https://raw.githubusercontent.com/KolosovAO/noteList/master/data1.json');
+new NotesWidget('c1', 'https://raw.githubusercontent.com/KolosovAO/noteList/master/data2.json');
 
-new NotesWidget('c2', 'https://raw.githubusercontent.com/KolosovAO/noteList/master/data2.json');
+//new NotesWidget('c2', 'https://raw.githubusercontent.com/KolosovAO/noteList/master/data1.json');
