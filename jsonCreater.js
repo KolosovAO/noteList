@@ -6,9 +6,9 @@ let jsonFile = [];
 
 genRandomTone = () => tones[Math.floor(Math.random()*6)]
 genRandomNote = () => notes[Math.floor(Math.random()*7)]
-genRandomSize = () => Math.floor(Math.random()*200)+1;
+const size = Math.floor(Math.random()*150)+1;
 generatedJSON = [];
-for (let i=0; i<=genRandomSize(); i++){
+for (let i=0; i<=size; i++){
     generatedJSON.push({note:genRandomNote(), tone:genRandomTone()})
 }
 fs.writeFileSync('data2.json', JSON.stringify(generatedJSON));
