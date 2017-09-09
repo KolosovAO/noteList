@@ -53,6 +53,17 @@ function NotesWidget(area, jsonFile){
             increaseY();
             p.line(x,y,p.width,y);
         }
+        const drawAll = () => {
+        	y = 0;
+            for (let i=0; i<notes.length; i++){
+                if (i%16 === 0){		
+                    x = 10;
+                    increaseY(4);
+                    createNoteSpan();
+                }
+                render(notes[i]);
+            }
+        }
         p.preload = function(){
             data = p.loadJSON(jsonFile);
         }
@@ -68,23 +79,15 @@ function NotesWidget(area, jsonFile){
                 notes[i] = new Note(data[i],x+10,y,25,25);
                 x += 50;
             }
+            drawAll();
         }
         p.draw = function(){
-            y = 0;
-            for (let i=0; i<notes.length; i++){
-                if (i%16 === 0){		
-                    x = 10;
-                    increaseY(4);
-                    createNoteSpan();
-                }
-                render(notes[i]);
-            }
+
         }	
         p.mousePressed = function(){
             for (let i=0; i<notes.length; i++){
                 if (notes[i].contains(p.mouseX, p.mouseY)){
                     p.clear();
-                    console.log(p.mouseX)
                     for (let j=i+1; j<notes.length; j++){
                     	if (notes[j].x>50){
                     		notes[j].x -= 50;	
@@ -96,6 +99,7 @@ function NotesWidget(area, jsonFile){
                     notes.splice(i,1);
                 }
             }
+            drawAll();
         }
     };
     new p5(sketch, area);
